@@ -36,6 +36,8 @@ def process_video(original_video_path, compressed_video_path):
         print(f"Error opening compressed video: {compressed_video_path}")
         return [], []
 
+    total_frames = int(min(original_video.get(cv2.CAP_PROP_FRAME_COUNT), compressed_video.get(cv2.CAP_PROP_FRAME_COUNT)))
+
     # Initialize lists to store PSNR and SSIM values
     psnr_values = []
     ssim_values = []
@@ -55,9 +57,6 @@ def process_video(original_video_path, compressed_video_path):
         if len(frame_compressed.shape) == 3:
             frame_compressed = cv2.cvtColor(frame_compressed, cv2.COLOR_BGR2GRAY)
 
-        total_frames = int(
-            min(original_video.get(cv2.CAP_PROP_FRAME_COUNT), compressed_video.get(cv2.CAP_PROP_FRAME_COUNT)))
-
         # Calculate PSNR and SSIM
         psnr = calculate_psnr(frame_original, frame_compressed)
         ssim_value = calculate_ssim(frame_original, frame_compressed)
@@ -75,7 +74,7 @@ def process_video(original_video_path, compressed_video_path):
     return psnr_values, ssim_values
 
 base_dir = r'C:\Users\leont\PycharmProjects\dimplomska\kodeki\\'
-codec_dirs = ['264', '265']
+codec_dirs = ['266']
 video_names = ['BigBuckBunny', 'EarlyRide', 'Horror']
 
 for video_name in video_names:
